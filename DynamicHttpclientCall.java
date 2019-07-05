@@ -20,7 +20,6 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 /**
  * HTTPClient动态调用webservice类
  * 
- * @author ly
  *
  */
 public class DynamicHttpclientCall {
