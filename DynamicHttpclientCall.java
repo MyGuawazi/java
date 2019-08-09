@@ -19,8 +19,6 @@ import org.apache.commons.httpclient.methods.RequestEntity;
  
 /**
  * HTTPClient动态调用webservice类
- * 
- *
  */
 public class DynamicHttpclientCall {
 	
@@ -97,20 +95,20 @@ public class DynamicHttpclientCall {
     public int invoke(Map<String, String> patameterMap) throws Exception {
     	int statusCode;
     	try {
-    		 PostMethod postMethod = new PostMethod(wsdlLocation);							//新建一个postMethod，以便以post方式发送请求
-    	        String soapRequestData = buildRequestData(patameterMap);						//构造Soap请求字符串
+    		 PostMethod postMethod = new PostMethod(wsdlLocation);	//新建一个postMethod，以便以post方式发送请求
+    	        String soapRequestData = buildRequestData(patameterMap);//构造Soap请求字符串
 
-    	        byte[] bytes = soapRequestData.getBytes("utf-8");								//获取请求字符串的utf-8编码
-    	        InputStream inputStream = new ByteArrayInputStream(bytes, 0, bytes.length);		//将请求数据构建到输出流
-    	        RequestEntity requestEntity = new InputStreamRequestEntity(inputStream,			//构建请求实体
+    	        byte[] bytes = soapRequestData.getBytes("utf-8");//获取请求字符串的utf-8编码
+    	        InputStream inputStream = new ByteArrayInputStream(bytes, 0, bytes.length);//将请求数据构建到输出流
+    	        RequestEntity requestEntity = new InputStreamRequestEntity(inputStream,	//构建请求实体
     	                bytes.length, "application/soap+xml; charset=utf-8");
-    	        postMethod.setRequestEntity(requestEntity);										//将请求实体放进postMethod
+    	        postMethod.setRequestEntity(requestEntity);//将请求实体放进postMethod
 
-    	        HttpClient httpClient = new HttpClient();		//生成HttpClient对象
+    	        HttpClient httpClient = new HttpClient();//生成HttpClient对象
 //    	        httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(4000);
 //    	        httpClient.getHttpConnectionManager().getParams().setSoTimeout(4000);
-    	        statusCode = httpClient.executeMethod(postMethod);							//用HttpClient发送Soap请求，并获取状态码
-    	        soapResponseData = postMethod.getResponseBodyAsString();						//获取返回的xml字符串，并赋值给soapResponseData
+    	        statusCode = httpClient.executeMethod(postMethod);//用HttpClient发送Soap请求，并获取状态码
+    	        soapResponseData = postMethod.getResponseBodyAsString();//获取返回的xml字符串，并赋值给soapResponseData
     	        XmlUtils xmlUtils = new XmlUtils(this.soapResponseData);
     	        this.result = xmlUtils.obtainValue(this.methodName+"Result");
 		}catch (Exception e) {
